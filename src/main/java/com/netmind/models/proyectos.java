@@ -2,14 +2,39 @@ package com.netmind.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
+
+@Entity
+@Table(name = "proyectos")
 public class proyectos {
 	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "pid" )
 	private int pid;
+	
+	@ForeignKey(name = "usuarios.uid")
 	private int uid;
+	
+	@Column
 	private String codigo;
+	
+	@Column
 	private String titulo;
+	
+	@Column
 	private Date fechainicio;
+	
+	@Column
 	private Date fechafin;
+	
+	@Column
 	private boolean estado ;
 	
 	public proyectos(int pid,int uid, String codigo,  String titulo,Date fechainicio, Date fechafin, boolean estado) {
