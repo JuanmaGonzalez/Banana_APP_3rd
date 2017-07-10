@@ -28,7 +28,7 @@ public class TareasResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<tareas> getTareasListUser(@PathParam("uid") int uid) {		
 		
-		// acceso a la clase devolver proyectos del usuario
+		// acceso a la clase devolver TAREAS del usuario
 		
 		return this.tareasUser;
 	}	
@@ -41,13 +41,13 @@ public class TareasResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Message insertTarea(tareas nuevoOeditTarea) {
 				
-		// añadiriamos un proyecto si este id de proyecto no existe lo creamos si existe lo modificamos
+		// añadiriamos un proyecto si este id de TAREA no existe lo creamos si existe lo modificamos
 		
 		
 		return new Message("Tarea Añadida");
 	}
 
-	/* GET|PUT|DELETE /proyectos/{pid} */
+	/* GET|PUT|DELETE /tareas/{tid} */
 	@Path("/{tid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -62,16 +62,16 @@ public class TareasResource {
 		}
 		*/
 		
-		// acceso a la Bdatos para devolver un proyecto.
+		// acceso a la Bdatos para devolver una tarea.
 
 		return this.UnaTarea;
 	}
 	
-	@Path("/{pid}")
+	@Path("/{tid}")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message deleteProyecto(@PathParam("pid") int pid) {
+	public Message deleteTarea(@PathParam("tid") int tid) {
 		
 		/*
 		for (User user : misUsuarios) {
@@ -82,7 +82,7 @@ public class TareasResource {
 		}
 		*/
 
-		return new Message("Proyecto Borrado");
+		return new Message("Tarea Borrado");
 	}	
 	
 }

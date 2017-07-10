@@ -2,11 +2,29 @@ package com.netmind.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.ForeignKey;
+
 public class tareas {
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "tid" )
 	private int tid;
+	
+	@ForeignKey(name = "usuarios.uid")
 	private int uid;
+	
+	@Column
 	private int pid;
+	
+	@Column
 	private String tarea;
+	
+	@Column
 	private Date fechafin;
 	
 	public tareas(int tid, int uid, int pid, String tarea, Date fechafin) {
