@@ -15,43 +15,43 @@ import javax.ws.rs.core.MediaType;
 import com.netmind.models.Message;
 import com.netmind.models.User;
 import com.netmind.models.proyectos;
+import com.netmind.models.tareas;
 
-@Path("/proyectos")
+@Path("/tareas")
 public class TareasResource {
-	private static List<proyectos> proyectosUser;
-	private static proyectos Unproyecto;
+	private static List<tareas> tareasUser;
+	private static tareas UnaTarea;
 	
-	/* GET|POST /Lista de proyectos del Usuario solicitado */
-	@Path("/")
+	/* GET|POST /Lista de tareas del Usuario solicitado */
+	@Path("/usuario/{uid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<proyectos> getProyectosList(@PathParam("uid") int uid) {		
+	public List<tareas> getTareasListUser(@PathParam("uid") int uid) {		
 		
 		// acceso a la clase devolver proyectos del usuario
 		
-		return this.proyectosUser;
+		return this.tareasUser;
 	}	
 	
 	
-	/* POST Insertar o Actualizar proyecto */
+	/* POST Insertar o Actualizar tarea */
 	@Path("/")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message insertUsuario(proyectos nuevoOedit) {
-		
-		
+	public Message insertTarea(tareas nuevoOeditTarea) {
+				
 		// añadiriamos un proyecto si este id de proyecto no existe lo creamos si existe lo modificamos
 		
 		
-		return new Message("Proyecto Añadido");
+		return new Message("Tarea Añadida");
 	}
 
 	/* GET|PUT|DELETE /proyectos/{pid} */
-	@Path("/{pid}")
+	@Path("/{tid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public proyectos getProyectoUser(@PathParam("pid") int pid) {
+	public tareas getTareaUser(@PathParam("tid") int tid) {
 
 	   /*	User unUser = new User();
 		for (User user : misUsuarios) {
@@ -64,7 +64,7 @@ public class TareasResource {
 		
 		// acceso a la Bdatos para devolver un proyecto.
 
-		return this.Unproyecto;
+		return this.UnaTarea;
 	}
 	
 	@Path("/{pid}")
