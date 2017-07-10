@@ -72,6 +72,7 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 		List<proyectos> listADevolver = new ArrayList<proyectos>();
 
 		try {
+			
 			Connection conn = this.datasource.getConnection();
 
 			// ordenes sql
@@ -80,8 +81,6 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 			pstm.setInt(1, uid);
 
 			ResultSet rs = pstm.executeQuery();			
-			
-			
 			
 			while (rs.next()) {
 				listADevolver.add(new proyectos(rs.getInt("pid"), rs.getInt("uid"),  rs.getString("codigo"), rs.getString("titulo"),	

@@ -10,6 +10,7 @@ public class DAOFactory {
 		return instance;
 	}
 	
+	
 	public Object getDAO(String daoType){
 		switch (daoType) {
 			case "usuario": return (Object)UsuarioDAOImpl.getInstance();

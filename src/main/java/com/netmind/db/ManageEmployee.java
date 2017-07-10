@@ -1,4 +1,4 @@
-package com.netmind.persistence;
+package com.netmind.db;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

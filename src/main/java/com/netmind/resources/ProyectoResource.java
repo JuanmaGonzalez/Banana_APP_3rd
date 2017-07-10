@@ -12,8 +12,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.netmind.db.ProyectoDAO;
+import com.netmind.db.ProyectoDAOImpl;
+import com.netmind.db.TareaDAO;
+import com.netmind.db.TareaDAOImpl;
 import com.netmind.models.Message;
 import com.netmind.models.User;
+import com.netmind.models.Usuario;
 import com.netmind.models.proyectos;
 
 @Path("/proyectos")
@@ -26,6 +31,17 @@ public class ProyectoResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<proyectos> getProyectosList(@PathParam("uid") int uid) {		
+		
+		/*
+		Usuario elUsuario = (Usuario) misession.getAttribute("usuario");
+		
+		ProyectoDAO pDAO = (ProyectoDAO) ProyectoDAOImpl.getInstance();
+		TareaDAO tDAO = (TareaDAO) TareaDAOImpl.getInstance();
+		*/
+		
+		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
+		this.proyectosUser = proPers.getUserProyectos(uid); 
+		
 		
 		// acceso a la clase devolver proyectos del usuario
 		
