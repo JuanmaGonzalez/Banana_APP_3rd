@@ -32,29 +32,21 @@ public class ProyectoResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<proyectos> getProyectosList(@PathParam("uid") int uid) {		
 		
-		/*
-		Usuario elUsuario = (Usuario) misession.getAttribute("usuario");
-		
-		ProyectoDAO pDAO = (ProyectoDAO) ProyectoDAOImpl.getInstance();
-		TareaDAO tDAO = (TareaDAO) TareaDAOImpl.getInstance();
-		*/
-		
+		// acceso a la clase devolver proyectos del usuario
 		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
 		this.proyectosUser = proPers.getUserProyectos(uid); 
-		
-		
-		// acceso a la clase devolver proyectos del usuario
 		
 		return this.proyectosUser;
 	}	
 	
 	
-	/* POST Insertar o Actualizar proyecto */
+	/* POST Insertar un Proyecto */
 	@Path("/")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Message insertUsuario(proyectos nuevoOedit) {
+		
 		
 		
 		// añadiriamos un proyecto si este id de proyecto no existe lo creamos si existe lo modificamos

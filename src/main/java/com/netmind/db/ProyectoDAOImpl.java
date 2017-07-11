@@ -119,7 +119,6 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 			}
 
 			pstm.close();
-
 			conn.close();
 
 			logger.info("Conexión exitosa");

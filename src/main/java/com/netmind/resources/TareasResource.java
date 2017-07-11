@@ -30,11 +30,12 @@ public class TareasResource {
 		
 		// acceso a la clase devolver TAREAS del usuario
 		
+		
 		return this.tareasUser;
 	}	
 	
 	
-	/* POST Insertar o Actualizar tarea */
+	/* POST Insertar un tarea */
 	@Path("/")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
