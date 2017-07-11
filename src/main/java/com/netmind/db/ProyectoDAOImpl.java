@@ -97,7 +97,7 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 	}
 
 	
-
+     /* Prueba de actualizacion */
 	@Override
 	public boolean updateProyecto(proyectos proyecto) {		
 		boolean exito = false;
