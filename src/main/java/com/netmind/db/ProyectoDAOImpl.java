@@ -54,17 +54,96 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 	}
 
 	@Override
-	public boolean delProyecto(int mid) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delProyecto(int pid) {
+		boolean exito = false;
+		
+		try {
+
+			Connection conn = this.datasource.getConnection();
+
+			try {
+				conn.setAutoCommit(false);
+				
+				// Borrar Proyecto uno
+				String sql = "DELETE proyectos WHERE pid = ? ";
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				pstm.setInt(1, pid);				
+
+				int rows = pstm.executeUpdate();
+
+				pstm.close();
+				
+				conn.commit();
+
+				conn.close();
+
+				logger.info("Inserción exitosa");
+				exito = rows > 0 ? true : false;
+
+			} catch (Exception e) {
+				conn.rollback();
+				logger.severe("Transacción fallida:" + e.getMessage());
+				exito = false;
+			}
+
+		} catch (Exception e) {
+			logger.severe("Error en la conexión de BBDD:" + e.getMessage());
+			exito = false;
+		}
+
+		return exito;
+		
+		
 	}
 
 	
 
 	@Override
-	public boolean updateProyecto(proyectos proyecto) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateProyecto(proyectos proyecto) {		
+		boolean exito = false;
+		
+		try {
+
+			Connection conn = this.datasource.getConnection();
+
+			try {
+				conn.setAutoCommit(false);
+				
+				// INSERTAR EN PROYECTO
+				String sql = "UPDATE proyectos ( pid, uid, codigo, titulo, fechainicio, fechafin, estado ) VALUES(NULL,?,?,?,? ) WHERE pid = ?";
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				//pstm.setInt(1, proyecto.getPid());
+				pstm.setInt(1, proyecto.getUid());
+				pstm.setString(2, proyecto.getCodigo());
+				pstm.setString(3, proyecto.gettitulo());
+				pstm.setDate(4, (java.sql.Date) proyecto.getFechainicio());
+				pstm.setDate(5, (java.sql.Date) proyecto.getFechafin());				
+				pstm.setBoolean(6, proyecto.getestado());
+				pstm.setInt(7, proyecto.getPid());
+
+				int rows = pstm.executeUpdate();
+
+				pstm.close();
+				
+				conn.commit();
+
+				conn.close();
+
+				logger.info("Inserción exitosa");
+				exito = rows > 0 ? true : false;
+
+			} catch (Exception e) {
+				conn.rollback();
+				logger.severe("Transacción fallida:" + e.getMessage());
+				exito = false;
+			}
+
+		} catch (Exception e) {
+			logger.severe("Error en la conexión de BBDD:" + e.getMessage());
+			exito = false;
+		}
+
+		return exito;
 	}
 
 	@Override
@@ -134,9 +213,50 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 		
 
 	@Override
-	public boolean insertProyecto(proyectos cosmetico) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertProyecto(proyectos proyecto) {
+		boolean exito = false;
+		
+		try {
+
+			Connection conn = this.datasource.getConnection();
+
+			try {
+				conn.setAutoCommit(false);
+				
+				// INSERTAR EN PROYECTO
+				String sql = "INSERT INTO proyectos VALUES(NULL,?,?,?,?)";
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				pstm.setInt(1, proyecto.getPid());
+				pstm.setInt(2, proyecto.getUid());
+				pstm.setString(3, proyecto.getCodigo());
+				pstm.setString(4, proyecto.gettitulo());
+				pstm.setDate(5, (java.sql.Date) proyecto.getFechainicio());
+				pstm.setDate(6, (java.sql.Date) proyecto.getFechafin());				
+				pstm.setBoolean(7, proyecto.getestado());
+
+				int rows = pstm.executeUpdate();
+
+				pstm.close();
+				
+				conn.commit();
+
+				conn.close();
+
+				logger.info("Inserción exitosa");
+				exito = rows > 0 ? true : false;
+
+			} catch (Exception e) {
+				conn.rollback();
+				logger.severe("Transacción fallida:" + e.getMessage());
+				exito = false;
+			}
+
+		} catch (Exception e) {
+			logger.severe("Error en la conexión de BBDD:" + e.getMessage());
+			exito = false;
+		}
+
+		return exito;
 	}
 
 

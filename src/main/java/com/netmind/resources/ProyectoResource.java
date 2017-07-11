@@ -39,41 +39,53 @@ public class ProyectoResource {
 		return this.proyectosUser;
 	}	
 	
+	/* GET|PUT|DELETE /proyectos/{pid} */
+	@Path("/usuario/{uid}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<proyectos> getProyectosUser(@PathParam("uid") int uid) {
+
+		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
+		this.proyectosUser = proPers.getUserProyectos(uid); 		
+		
+		return this.proyectosUser;
+	}
+	
+	/* GET  /proyectos/{pid} */
+	@Path("/{uid}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public proyectos getProyectoUser(@PathParam("pid") int pid) {
+
+		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
+		this.Unproyecto = proPers.getProyecto(pid); 		
+		
+		return this.Unproyecto;
+	}
+
 	
 	/* POST Insertar un Proyecto */
 	@Path("/")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message insertUsuario(proyectos nuevoOedit) {
+	public Message insertUsuario(proyectos nuevoProyecto) {
+		boolean OkInsertP = false;
+		String Mensage = "";
 		
+		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
+		OkInsertP = proPers.insertProyecto(nuevoProyecto); 
 		
-		
-		// añadiriamos un proyecto si este id de proyecto no existe lo creamos si existe lo modificamos
-		
-		
-		return new Message("Proyecto Añadido");
-	}
-
-	/* GET|PUT|DELETE /proyectos/{pid} */
-	@Path("/{pid}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public proyectos getProyectoUser(@PathParam("pid") int pid) {
-
-	   /*	User unUser = new User();
-		for (User user : misUsuarios) {
-			if(user.getUid()==uid){
-				unUser=user;
-				break;
-			}
+		if(OkInsertP) {
+			Mensage  = "Proyecto Insertado Correctamente";			
+		}else {
+			Mensage  = "Proyecto No insertado ERROR";
 		}
-		*/
-		
-		// acceso a la Bdatos para devolver un proyecto.
-
-		return this.Unproyecto;
+					
+		return new Message(Mensage);
 	}
+
+	
 	
 	@Path("/{pid}")
 	@DELETE

@@ -50,5 +50,6 @@
 	<classpathentry kind="lib" path="C:/Josep_prieto/2017/M2/U2/recursos/hibernate/hibernatejars/jta.jar"/>
 	<classpathentry kind="lib" path="C:/Josep_prieto/2017/M2/U2/recursos/hibernate/hibernatejars/log4j-1.2.11.jar"/>
 	<classpathentry kind="lib" path="C:/Josep_prieto/2017/M2/U2/recursos/hibernate/hibernatejars/xerces-2.6.2.jar"/>
+	<classpathentry kind="lib" path="C:/Josep_prieto/2017/M2/U2/recursos_otros/hibernate/mysql_drivers/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
