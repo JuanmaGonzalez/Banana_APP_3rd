@@ -26,7 +26,8 @@ public class ProyectoResource {
 	private static List<proyectos> proyectosUser;
 	private static proyectos Unproyecto;
 	
-	/* GET|POST /Lista de proyectos del Usuario solicitado */
+	/*
+	/* GET|POST /Lista de proyectos del Usuario solicitado 
 	@Path("/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -38,6 +39,7 @@ public class ProyectoResource {
 		
 		return this.proyectosUser;
 	}	
+	*/
 	
 	/* GET|PUT|DELETE /proyectos/{pid} */
 	@Path("/usuario/{uid}")
@@ -52,10 +54,10 @@ public class ProyectoResource {
 	}
 	
 	/* GET  /proyectos/{pid} */
-	@Path("/{uid}")
+	@Path("/{pid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public proyectos getProyectoUser(@PathParam("pid") int pid) {
+	public proyectos getProyectoUno(@PathParam("pid") int pid) {
 
 		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
 		this.Unproyecto = proPers.getProyecto(pid); 		
@@ -69,7 +71,7 @@ public class ProyectoResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message insertUsuario(proyectos nuevoProyecto) {
+	public Message insertProyecto(proyectos nuevoProyecto) {
 		boolean OkInsertP = false;
 		String Mensage = "";
 		
@@ -84,25 +86,50 @@ public class ProyectoResource {
 					
 		return new Message(Mensage);
 	}
-
+	
+	/* PUT MODIFICAR un Proyecto */
+	@Path("/")
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Message modifProyecto(proyectos ModifProyecto) {
+		boolean OkInsertP = false;
+		String Mensage = "";
+		
+		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
+		OkInsertP = proPers.updateProyecto(ModifProyecto); 
+		
+		if(OkInsertP) {
+			Mensage  = "Proyecto Insertado Correctamente";			
+		}else {
+			Mensage  = "Proyecto No insertado ERROR";
+		}
+					
+		return new Message(Mensage);
+	}
 	
 	
 	@Path("/{pid}")
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message deleteProyecto(@PathParam("pid") int pid) {
-		
-		/*
-		for (User user : misUsuarios) {
-			if(user.getUid()==uid){
-				misUsuarios.remove(user);
-				break;
-			}
+	public Message deleteProyecto(@PathParam("pid") int pid) {boolean OkInsertP = false;
+		String Mensage = "";
+	
+		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
+		OkInsertP = proPers.delProyecto(pid); 
+	
+		if(OkInsertP) {
+			Mensage  = "Proyecto Borrado Correctamente";			
+		}else {
+			Mensage  = "Proyecto No BORRADO";
 		}
-		*/
+				
+	return new Message(Mensage);
+	}
+	
+	
 
-		return new Message("Proyecto Borrado");
-	}	
+	
 	
 }
