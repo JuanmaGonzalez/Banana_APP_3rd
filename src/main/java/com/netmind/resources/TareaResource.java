@@ -30,7 +30,7 @@ public class TareaResource {
 	@Path("/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<tareas> getTareasListUser(@PathParam("pid") int pid) {
+	public List<tareas> getTareas(@PathParam("pid") int pid) {
 
 		// acceso a la clase devolver TAREAS del usuario
 
@@ -39,76 +39,50 @@ public class TareaResource {
 
 		return this.tareasUser;
 	}
+	
+	//borrar tarea
+	@Path("/{tid}")
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Message delTarea(@PathParam("tid") int tid) {
 
+		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
+		this.tareasUser = tarPers.getTareas(tid);
+
+
+		return new Message("Tarea Borrado");
+	}
+	
+	
 	/* POST Insertar un tarea */
 	@Path("/")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message insertTarea(tareas nuevoOeditTarea) {
-
-		// añadiriamos un proyecto si este id de TAREA no existe lo creamos si
-		// existe lo modificamos
+	public Message insertarTarea(tareas nuevoOeditTarea) {
+		boolean Oktarea = false;
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-		this.tareasUser.add(nuevoOeditTarea);
+          Oktarea =  tarPers.insertarTarea(nuevoOeditTarea);
 
 		return new Message("Tarea Añadida");
 	}
 
-	/* GET|PUT|DELETE /tareas/{tid} */
-	@Path("/{tid}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public tareas getTareaUser(@PathParam("tid") int tid) {
 
-		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-		tareas unaTarea = new tareas(tid, tid, tid, null, null);
-		for (tareas tarea : tareasUser) {
-			if (tarea.getTid() == tid) {
-				unaTarea = tarea;
-				break;
-			}
-		}
-
-		// acceso a la Bdatos para devolver una tarea.
-
-		return this.UnaTarea;
-	}
-
-	@Path("/{tid}")
+	//Modificar tarea
+	@Path("/{uid}")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message updateTarea(@PathParam("tid") int tid, tareas unaTarea) {
+	public Message updateTarea(tareas modificarTarea ) {
+		
+		boolean Oktarea = false;
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-		for (tareas aTarea : tareasUser) {
-			if (aTarea.getUid() == tid) {
-				tareasUser.remove(aTarea);
-				tareasUser.add(unaTarea);
-				break;
-			}
-		}
+          Oktarea =  tarPers.insertarTarea(modificarTarea);
 
-		return new Message("Tareas modificadas");
+
+		return new Message("Tarea modificada");
 	}
-
-	@Path("/{tid}")
-	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Message deleteTarea(@PathParam("tid") int tid) {
-
-		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-		for (tareas tarea : tareasUser) {
-			if (tarea.getTid() == tid) {
-				tareasUser.remove(tarea);
-				break;
-			}
-		}
-
-		return new Message("Tarea Borrado");
-	}
-
 }
