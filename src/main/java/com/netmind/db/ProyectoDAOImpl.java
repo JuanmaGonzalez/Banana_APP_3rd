@@ -110,7 +110,7 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 				conn.setAutoCommit(false);
 				
 				// INSERTAR EN PROYECTO
-				String sql = "UPDATE proyectos SET pid = ? , uid = ? , codigo, titulo, fechainicio, fechafin, estado ) VALUES(NULL,?,?,?,? ) WHERE pid = ?";
+				String sql = "UPDATE proyectos SET  uid = ? , codigo = ? , titulo = ? , fechainicio = ? , fechafin = ? , estado = ? WHERE pid = ?";
 				PreparedStatement pstm = conn.prepareStatement(sql);
 				//pstm.setInt(1, proyecto.getPid());
 				pstm.setInt(1, proyecto.getUid());

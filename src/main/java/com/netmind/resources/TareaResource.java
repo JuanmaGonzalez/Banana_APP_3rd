@@ -35,9 +35,9 @@ public class TareaResource {
 		// acceso a la clase devolver TAREAS del usuario
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-		this.tareasUser = tarPers.getTareas(pid);
+		TareaResource.tareasUser = tarPers.getTareasProyecto(pid);
 
-		return this.tareasUser;
+		return TareaResource.tareasUser;
 	}
 	
 	//borrar tarea
@@ -46,12 +46,19 @@ public class TareaResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Message delTarea(@PathParam("tid") int tid) {
+		boolean OkInsertP = false;
+		String Mensage = "";
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-		this.tareasUser = tarPers.getTareas(tid);
-
-
-		return new Message("Tarea Borrado");
+		OkInsertP = tarPers.delTarea(tid);
+		
+		if(OkInsertP) {
+			Mensage  = "Tarea Borrado Correctamente";			
+		}else {
+			Mensage  = "Tarea No BORRADO";
+		}
+				
+	return new Message(Mensage);
 	}
 	
 	
@@ -71,7 +78,7 @@ public class TareaResource {
 
 
 	//Modificar tarea
-	@Path("/{uid}")
+	@Path("/")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -80,7 +87,7 @@ public class TareaResource {
 		boolean Oktarea = false;
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-          Oktarea =  tarPers.insertarTarea(modificarTarea);
+          Oktarea =  tarPers.updateTarea(modificarTarea);
 
 
 		return new Message("Tarea modificada");

@@ -25,7 +25,7 @@ public final class TareaDAOImpl extends TareaDAO {
 	}
 
 	@Override
-	public List<tareas> getTareas(int pid) {		
+	public List<tareas> getTareasProyecto(int pid) {		
 		List<tareas> listTADevolver = new ArrayList<tareas>();		
 
 		try {
@@ -54,11 +54,81 @@ public final class TareaDAOImpl extends TareaDAO {
 
 		return listTADevolver;
 	}
+	
+	@Override
+	public List<tareas> getTareasTodas() {		
+		List<tareas> listTADevolver = new ArrayList<tareas>();		
+
+		try {
+			Connection conn = this.datasource.getConnection();
+			// ordenes sql
+			String sql = "SELECT t.* FROM tareas t ";
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			//pstm.setInt(1, pid);
+
+			ResultSet rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				listTADevolver.add(new tareas(rs.getInt("tid"), rs.getInt("uid"),  rs.getInt("pid"), rs.getString("tarea"),	
+						rs.getDate("fechafin")));
+			}
+
+			pstm.close();
+			conn.close();
+
+			logger.info("Conexión exitosa");
+
+		} catch (Exception e) {
+			logger.severe("Error en la conexión de BBDD:" + e);
+			listTADevolver = null;
+		}
+
+		return listTADevolver;
+	}
+
+	
+	
+	
+	
 
 	@Override
-	public boolean delTarea(int mid) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delTarea(int tid) {
+		boolean exito;
+		try {
+
+			Connection conn = this.datasource.getConnection();
+
+			try {
+				conn.setAutoCommit(false);
+				
+				// Borrar Proyecto uno
+				String sql = "DELETE tareas WHERE tid = ? ";
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				pstm.setInt(1, tid);				
+
+				int rows = pstm.executeUpdate();
+
+				pstm.close();
+				
+				conn.commit();
+
+				conn.close();
+
+				logger.info("Inserción exitosa");
+				exito = rows > 0 ? true : false;
+
+			} catch (Exception e) {
+				conn.rollback();
+				logger.severe("Transacción fallida:" + e.getMessage());
+				exito = false;
+			}
+
+		} catch (Exception e) {
+			logger.severe("Error en la conexión de BBDD:" + e.getMessage());
+			exito = false;
+		}
+
+		return exito;
 	}
 
 	@Override

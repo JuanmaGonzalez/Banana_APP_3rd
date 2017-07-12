@@ -26,20 +26,20 @@ public class ProyectoResource {
 	private static List<proyectos> proyectosUser;
 	private static proyectos Unproyecto;
 	
-	/*
-	/* GET|POST /Lista de proyectos del Usuario solicitado 
+	
+	/* GET|POST /Lista de proyectos de la tabla */ 
 	@Path("/")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<proyectos> getProyectosList(@PathParam("uid") int uid) {		
+	public List<proyectos> getProyectosList() {		
 		
 		// acceso a la clase devolver proyectos del usuario
 		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
-		this.proyectosUser = proPers.getUserProyectos(uid); 
+		ProyectoResource.proyectosUser = proPers.getProyectos(); 
 		
-		return this.proyectosUser;
+		return ProyectoResource.proyectosUser;
 	}	
-	*/
+	
 	
 	/* GET|PUT|DELETE /proyectos/{pid} */
 	@Path("/usuario/{uid}")
@@ -48,9 +48,9 @@ public class ProyectoResource {
 	public List<proyectos> getProyectosUser(@PathParam("uid") int uid) {
 
 		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
-		this.proyectosUser = proPers.getUserProyectos(uid); 		
+		ProyectoResource.proyectosUser = proPers.getUserProyectos(uid); 		
 		
-		return this.proyectosUser;
+		return ProyectoResource.proyectosUser;
 	}
 	
 	/* GET  /proyectos/{pid} */
@@ -60,9 +60,9 @@ public class ProyectoResource {
 	public proyectos getProyectoUno(@PathParam("pid") int pid) {
 
 		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
-		this.Unproyecto = proPers.getProyecto(pid); 		
+		ProyectoResource.Unproyecto = proPers.getProyecto(pid); 		
 		
-		return this.Unproyecto;
+		return ProyectoResource.Unproyecto;
 	}
 
 	
