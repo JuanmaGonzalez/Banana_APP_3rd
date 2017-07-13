@@ -23,6 +23,37 @@ public final class TareaDAOImpl extends TareaDAO {
 		}
 		return instance;
 	}
+	
+	@Override
+	public tareas getUnaTarea(int tid) {		
+		tareas tarea = null;		
+
+		try {
+			Connection conn = this.datasource.getConnection();
+			// ordenes sql
+			String sql = "SELECT t.* FROM tareas t WHERE t.tid= ? ";
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, tid);
+
+			ResultSet rs = pstm.executeQuery();
+			
+			if(rs.next() == true ) {
+				   tarea =   new tareas(rs.getInt("tid"), rs.getInt("uid"),  rs.getInt("pid"), rs.getString("tarea"),	
+						rs.getDate("fechafin"));
+			}
+
+			pstm.close();
+			conn.close();
+
+			logger.info("Conexión exitosa");
+
+		} catch (Exception e) {
+			logger.severe("Error en la conexión de BBDD:" + e);
+			tarea = null;
+		}
+
+		return tarea;
+	}
 
 	@Override
 	public List<tareas> getTareasProyecto(int pid) {		

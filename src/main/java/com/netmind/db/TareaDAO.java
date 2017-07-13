@@ -10,5 +10,5 @@ public abstract class TareaDAO extends DAO {
 	public abstract boolean delTarea(int tid);
 	public abstract boolean insertarTarea(tareas tarea);
 	public abstract boolean updateTarea(tareas tarea);
-	
+	public abstract tareas getUnaTarea(int tid);	
 }
