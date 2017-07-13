@@ -145,17 +145,17 @@ public final class TareaDAOImpl extends TareaDAO {
 
 				conn.close();
 
-				logger.info("Inserción exitosa");
+				logger.info("DELETE TAREA OK");
 				exito = rows > 0 ? true : false;
 
 			} catch (Exception e) {
 				conn.rollback();
-				logger.severe("Transacción fallida:" + e.getMessage());
+				logger.severe("DELETE TAREA: Transacción fallida:" + e.getMessage());
 				exito = false;
 			}
 
 		} catch (Exception e) {
-			logger.severe("Error en la conexión de BBDD:" + e.getMessage());
+			logger.severe("DELETE TAREA: Error en la conexión de BBDD:" + e.getMessage());
 			exito = false;
 		}
 
@@ -179,7 +179,7 @@ public final class TareaDAOImpl extends TareaDAO {
 				pstm.setInt(1, nuevaTarea.getUid());
 				pstm.setInt(2, nuevaTarea.getPid());
 				pstm.setString(3, nuevaTarea.getTarea());
-				pstm.setDate(4, (java.sql.Date) nuevaTarea.getFechafin());
+				pstm.setDate(4, new java.sql.Date(nuevaTarea.getFechafin().getTime()));
 
 				int rows = pstm.executeUpdate();
 
@@ -223,7 +223,7 @@ public final class TareaDAOImpl extends TareaDAO {
 				pstm.setInt(1, tarea.getUid());
 				pstm.setInt(2, tarea.getPid());
 				pstm.setString(3, tarea.getTarea());				
-				pstm.setDate(4, (java.sql.Date) tarea.getFechafin());				
+				pstm.setDate(4, new java.sql.Date(tarea.getFechafin().getTime()));				
 				pstm.setInt(5, tarea.getTid());
 
 				int rows = pstm.executeUpdate();

@@ -98,13 +98,18 @@ public class ProyectoResource {
 		boolean OkInsertP = false;
 		String Mensage = "";
 		
+		logger.info("METODO PUT: MODIFICAR PROYETO:");
+		
 		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
 		OkInsertP = proPers.updateProyecto(ModifProyecto); 
 		
 		if(OkInsertP) {
-			Mensage  = "Proyecto Insertado Correctamente";			
+			
+			logger.info("METODO PUT: MODIFICAR PROYETO OK :");
+			
+			Mensage  = "Proyecto Modificado Correctamente";			
 		}else {
-			Mensage  = "Proyecto No insertado ERROR";
+			Mensage  = "Proyecto No Existe:";
 		}
 					
 		return new Message(Mensage);

@@ -34,7 +34,11 @@ public class proyectos {
 	
 	@Column
 	private boolean estado ;
-	
+			
+	public proyectos() {
+		super();
+	}
+
 	public proyectos(int pid,int uid, String codigo,  String titulo,Date fechainicio, Date fechafin, boolean estado) {
 		super();
 		this.pid =  pid;

@@ -25,6 +25,11 @@ public class tareas {
 	@Column
 	private Date fechafin;
 	
+		
+	public tareas() {
+		super();
+	}
+
 	public tareas(int tid, int uid, int pid, String tarea, Date fechafin) {
 		super();
 		this.tid = tid;

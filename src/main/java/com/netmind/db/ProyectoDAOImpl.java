@@ -101,9 +101,7 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 			exito = false;
 		}
 
-		return exito;
-		
-		
+		return exito;		
 	}
 
 	
@@ -114,6 +112,8 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 		
 		try {
 
+			logger.info("Actualizar Proyecto...");
+			
 			Connection conn = this.datasource.getConnection();
 
 			try {
@@ -126,8 +126,8 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 				pstm.setInt(1, proyecto.getUid());
 				pstm.setString(2, proyecto.getCodigo());
 				pstm.setString(3, proyecto.gettitulo());
-				pstm.setDate(4, (java.sql.Date) proyecto.getFechainicio());
-				pstm.setDate(5, (java.sql.Date) proyecto.getFechafin());				
+				pstm.setDate(4, new java.sql.Date(proyecto.getFechainicio().getTime()) );
+				pstm.setDate(5, new java.sql.Date(proyecto.getFechafin().getTime()) );				
 				pstm.setBoolean(6, proyecto.getestado());
 				pstm.setInt(7, proyecto.getPid());
 
@@ -139,12 +139,12 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 
 				conn.close();
 
-				logger.info("Inserción exitosa");
+				logger.info("Actualización EXITOSA DEL PROYECTO");
 				exito = rows > 0 ? true : false;
 
 			} catch (Exception e) {
 				conn.rollback();
-				logger.severe("Transacción fallida:" + e.getMessage());
+				logger.severe("Actualización FALLIDA DEL PROYECTO:" + e.getMessage());
 				exito = false;
 			}
 
@@ -241,8 +241,8 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 				pstm.setInt(1, proyecto.getUid());
 				pstm.setString(2, proyecto.getCodigo());
 				pstm.setString(3, proyecto.gettitulo());
-				pstm.setDate(4, (java.sql.Date) proyecto.getFechainicio());
-				pstm.setDate(5, (java.sql.Date) proyecto.getFechafin());				
+				pstm.setDate(4,  new java.sql.Date(proyecto.getFechainicio().getTime()));
+				pstm.setDate(5, new java.sql.Date(proyecto.getFechafin().getTime()));				
 				pstm.setBoolean(6, proyecto.getestado());
 
 				int rows = pstm.executeUpdate();
