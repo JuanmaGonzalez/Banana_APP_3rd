@@ -58,26 +58,36 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 		boolean exito = false;
 		
 		try {
-
+			logger.info("Borrando proyecto...");
+			
 			Connection conn = this.datasource.getConnection();
 
 			try {
 				conn.setAutoCommit(false);
 				
 				// Borrar Proyecto uno
-				String sql = "DELETE proyectos WHERE pid = ? ";
+				String sql = "DELETE  FROM tareas WHERE pid = ?";
 				PreparedStatement pstm = conn.prepareStatement(sql);
-				pstm.setInt(1, pid);				
-
-				int rows = pstm.executeUpdate();
-
+				pstm.setInt(1, pid);
+				int rows = pstm.executeUpdate();				
 				pstm.close();
+				
+				logger.info("tareas borradas...");
+				
+				String sql2 = "DELETE  FROM proyectos WHERE pid = ?";
+				PreparedStatement pstm2 = conn.prepareStatement(sql);
+				pstm2.setInt(1, pid);				
+
+				int rows2 = pstm2.executeUpdate();	
+				
+				
+				pstm2.close();
 				
 				conn.commit();
 
 				conn.close();
 
-				logger.info("Inserción exitosa");
+				logger.info("Borrado exitoso proyecto");
 				exito = rows > 0 ? true : false;
 
 			} catch (Exception e) {

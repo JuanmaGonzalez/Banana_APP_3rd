@@ -133,7 +133,7 @@ public final class TareaDAOImpl extends TareaDAO {
 				conn.setAutoCommit(false);
 				
 				// Borrar Proyecto uno
-				String sql = "DELETE tareas WHERE tid = ? ";
+				String sql = "DELETE FROM tareas WHERE tid = ? ";
 				PreparedStatement pstm = conn.prepareStatement(sql);
 				pstm.setInt(1, tid);				
 
