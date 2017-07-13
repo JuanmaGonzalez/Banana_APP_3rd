@@ -14,7 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.netmind.models.User;
-import com.netmind.models.proyectos;
 import com.netmind.models.tareas;
 import com.netmind.models.Message;
 

@@ -209,7 +209,6 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 
 		return listADevolver;
 	}
-
 		
 
 	@Override

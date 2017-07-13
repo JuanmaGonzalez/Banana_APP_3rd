@@ -12,13 +12,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.netmind.db.ProyectoDAO;
-import com.netmind.db.ProyectoDAOImpl;
 import com.netmind.db.TareaDAO;
 import com.netmind.db.TareaDAOImpl;
 import com.netmind.models.Message;
-import com.netmind.models.User;
-import com.netmind.models.proyectos;
 import com.netmind.models.tareas;
 
 @Path("/tareas")
@@ -66,17 +62,16 @@ public class TareaResource {
 	}
 	
 	
-	
-	/* POST Insertar un tarea */
+	/* POST Insertar una tarea */
 	@Path("/")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message insertarTarea(tareas nuevoOeditTarea) {
+	public Message insertarTarea(tareas nuevaTarea) {
 		boolean Oktarea = false;
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-          Oktarea =  tarPers.insertarTarea(nuevoOeditTarea);
+          Oktarea =  tarPers.insertarTarea(nuevaTarea);
 
 		return new Message("Tarea Añadida");
 	}

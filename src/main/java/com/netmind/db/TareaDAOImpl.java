@@ -174,7 +174,7 @@ public final class TareaDAOImpl extends TareaDAO {
 				conn.setAutoCommit(false);
 				
 				// INSERTAR EN TAREA
-				String sql = "INSERT INTO tareas VALUES(NULL,?,?,?,?)";
+				String sql = "INSERT INTO tareas (tid, uid, pid, tarea, fechafin )   VALUES (NULL,? ,? ,? ,? )";
 				PreparedStatement pstm = conn.prepareStatement(sql);
 				pstm.setInt(1, nuevaTarea.getUid());
 				pstm.setInt(2, nuevaTarea.getPid());
@@ -207,8 +207,47 @@ public final class TareaDAOImpl extends TareaDAO {
 	}
 
 	@Override
-	public boolean updateTarea(tareas compra) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateTarea(tareas tarea) {
+		boolean exito = false;
+		
+		try {
+
+			Connection conn = this.datasource.getConnection();
+
+			try {
+				conn.setAutoCommit(false);
+				
+				// INSERTAR EN PROYECTO
+				String sql = "UPDATE tareas SET  uid = ? , pid = ? , tarea = ? , fechafin = ? WHERE tid = ?";
+				PreparedStatement pstm = conn.prepareStatement(sql);				
+				pstm.setInt(1, tarea.getUid());
+				pstm.setInt(2, tarea.getPid());
+				pstm.setString(3, tarea.getTarea());				
+				pstm.setDate(4, (java.sql.Date) tarea.getFechafin());				
+				pstm.setInt(5, tarea.getTid());
+
+				int rows = pstm.executeUpdate();
+
+				pstm.close();
+				
+				conn.commit();
+
+				conn.close();
+
+				logger.info("Inserción exitosa");
+				exito = rows > 0 ? true : false;
+
+			} catch (Exception e) {
+				conn.rollback();
+				logger.severe("Transacción fallida:" + e.getMessage());
+				exito = false;
+			}
+
+		} catch (Exception e) {
+			logger.severe("Error en la conexión de BBDD:" + e.getMessage());
+			exito = false;
+		}
+
+		return exito;
 	}
 }
