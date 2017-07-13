@@ -7,15 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.ForeignKey;
-
 public class tareas {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "tid" )
 	private int tid;
 	
-	@ForeignKey(name = "usuarios.uid")
+	@Column
 	private int uid;
 	
 	@Column

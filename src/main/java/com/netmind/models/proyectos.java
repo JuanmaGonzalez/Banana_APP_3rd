@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ForeignKey;
-
 @Entity
 @Table(name = "proyectos")
 public class proyectos {
@@ -18,8 +16,8 @@ public class proyectos {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "pid" )
 	private int pid;
-	
-	@ForeignKey(name = "usuarios.uid")
+		
+	@Column
 	private int uid;
 	
 	@Column

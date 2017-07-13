@@ -1,6 +1,7 @@
 package com.netmind.resources;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,6 +26,7 @@ import com.netmind.models.proyectos;
 public class ProyectoResource {
 	private static List<proyectos> proyectosUser;
 	private static proyectos Unproyecto;
+	private static Logger logger = Logger.getLogger("API_PROYECTOS:");
 	
 	
 	/* GET|POST /Lista de proyectos de la tabla */ 
@@ -75,6 +77,8 @@ public class ProyectoResource {
 		boolean OkInsertP = false;
 		String Mensage = "";
 		
+		logger.info("METODO POST: INICIO INSERTAR PROYETO:");
+		
 		ProyectoDAO proPers = (ProyectoDAO) ProyectoDAOImpl.getInstance();
 		OkInsertP = proPers.insertProyecto(nuevoProyecto); 
 		
@@ -83,7 +87,9 @@ public class ProyectoResource {
 		}else {
 			Mensage  = "Proyecto No insertado ERROR";
 		}
-					
+			
+		logger.info("METODO POST: OK INSERTAR PROYETO:");
+		
 		return new Message(Mensage);
 	}
 	

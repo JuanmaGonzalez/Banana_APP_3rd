@@ -216,6 +216,8 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 	public boolean insertProyecto(proyectos proyecto) {
 		boolean exito = false;
 		
+		logger.info("ENTRADA EN ( InsertProyecto:");
+		
 		try {
 
 			Connection conn = this.datasource.getConnection();
@@ -224,15 +226,15 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 				conn.setAutoCommit(false);
 				
 				// INSERTAR EN PROYECTO
-				String sql = "INSERT INTO proyectos VALUES(NULL,?,?,?,?)";
+				String sql = "INSERT INTO proyectos ( pid, uid, codigo, titulo, fechainicio, fechafin, estado ) VALUES(NULL, ?, ?, ?, ?, ? ,? )";
 				PreparedStatement pstm = conn.prepareStatement(sql);
-				pstm.setInt(1, proyecto.getPid());
-				pstm.setInt(2, proyecto.getUid());
-				pstm.setString(3, proyecto.getCodigo());
-				pstm.setString(4, proyecto.gettitulo());
-				pstm.setDate(5, (java.sql.Date) proyecto.getFechainicio());
-				pstm.setDate(6, (java.sql.Date) proyecto.getFechafin());				
-				pstm.setBoolean(7, proyecto.getestado());
+				//pstm.setInt(1, proyecto.getPid());
+				pstm.setInt(1, proyecto.getUid());
+				pstm.setString(2, proyecto.getCodigo());
+				pstm.setString(3, proyecto.gettitulo());
+				pstm.setDate(4, (java.sql.Date) proyecto.getFechainicio());
+				pstm.setDate(5, (java.sql.Date) proyecto.getFechafin());				
+				pstm.setBoolean(6, proyecto.getestado());
 
 				int rows = pstm.executeUpdate();
 
