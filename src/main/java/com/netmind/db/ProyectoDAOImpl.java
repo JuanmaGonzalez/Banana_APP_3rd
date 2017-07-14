@@ -72,16 +72,16 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 				int rows = pstm.executeUpdate();				
 				pstm.close();
 				
-				logger.info("tareas borradas...");
+				logger.info("Tareas borradas: " + rows );
 				
 				String sql2 = "DELETE  FROM proyectos WHERE pid = ?";
-				PreparedStatement pstm2 = conn.prepareStatement(sql);
+				PreparedStatement pstm2 = conn.prepareStatement(sql2);
 				pstm2.setInt(1, pid);				
 
-				int rows2 = pstm2.executeUpdate();	
-				
-				
+				int rows2 = pstm2.executeUpdate();				
 				pstm2.close();
+				
+				logger.info("Proyecto borrado: " + rows2 );
 				
 				conn.commit();
 
