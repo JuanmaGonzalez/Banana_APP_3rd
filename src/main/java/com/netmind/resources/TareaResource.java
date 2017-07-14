@@ -80,12 +80,12 @@ public class TareaResource {
   			
   			logger.info("METODO POST: INSERTAR TAREA OK :");
   			
-  			Mensage  = "Proyecto Modificado Correctamente";			
+  			Mensage  = "Tarea Modificada Correctamente";			
   		}else {
   			
   			logger.info("METODO POST: TAREA NO INSERTADA: :");
   			
-  			Mensage  = "Proyecto No Existe:";
+  			Mensage  = "Tarea No Existe:";
   		}
   					
   		return new Message(Mensage);

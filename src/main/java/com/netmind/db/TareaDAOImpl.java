@@ -79,16 +79,13 @@ public final class TareaDAOImpl extends TareaDAO {
 	@Override
 	public List<tareas> getTareasTodas() {
 		
-		
 		List<tareas> listTADevolver = new ArrayList<tareas>();
 
 		try {
 			Connection conn = this.datasource.getConnection();
-			// ordenes sql
+			
 			String sql = "SELECT t.* FROM tareas t ";
 			PreparedStatement pstm = conn.prepareStatement(sql);
-			// pstm.setInt(1, pid);
-
 			ResultSet rs = pstm.executeQuery();
 
 			while (rs.next()) {
@@ -161,7 +158,7 @@ public final class TareaDAOImpl extends TareaDAO {
 				conn.setAutoCommit(false);
 
 				// INSERTAR EN TAREA
-				String sql = "INSERT INTO tareas (tid, uid, pid, tarea, fechafin )   VALUES (NULL,? ,? ,? ,? )";
+				String sql = "INSERT INTO tareas (tid, uid, pid, tarea, fechafin )   VALUES (NULL, ?, ?, ?, ? )";
 				PreparedStatement pstm = conn.prepareStatement(sql);
 				pstm.setInt(1, nuevaTarea.getUid());
 				pstm.setInt(2, nuevaTarea.getPid());
