@@ -1,6 +1,7 @@
 package com.netmind.resources;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,6 +22,7 @@ import com.netmind.models.tareas;
 public class TareaResource {
 	private static List<tareas> tareasUser;
 	private static tareas UnaTarea;
+	private static Logger logger = Logger.getLogger("API_TAREAS:");
 
 	/* GET|POST /Lista de todas las tareas */
 	@Path("/")
@@ -69,28 +71,52 @@ public class TareaResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Message insertarTarea(tareas nuevaTarea) {
 		boolean Oktarea = false;
+		String Mensage = "";
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
           Oktarea =  tarPers.insertarTarea(nuevaTarea);
 
-		return new Message("Tarea Añadida");
+          if( Oktarea) {
+  			
+  			logger.info("METODO POST: INSERTAR TAREA OK :");
+  			
+  			Mensage  = "Proyecto Modificado Correctamente";			
+  		}else {
+  			
+  			logger.info("METODO POST: TAREA NO INSERTADA: :");
+  			
+  			Mensage  = "Proyecto No Existe:";
+  		}
+  					
+  		return new Message(Mensage);
 	}
 
 
-	//Modificar tarea
+	//PUT Modificar tarea
 	@Path("/")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message updateTarea(tareas modificarTarea ) {
-		
+	public Message updateTarea(tareas modificarTarea ) {		
 		boolean Oktarea = false;
+		String Mensage = "";
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
           Oktarea =  tarPers.updateTarea(modificarTarea);
 
-
-		return new Message("Tarea modificada");
+          if( Oktarea) {
+    			
+    			logger.info("METODO PUT: MODIFICAR TAREA OK :");
+    			
+    			Mensage  = "TAREAS Modificado Correctamente";			
+    		}else {
+    			
+    			logger.info("METODO PUT: TAREA NO MODIFICADA: NO EXISTE :");
+    			
+    			Mensage  = "TAREA NO EXISTE en Tabla Tareas:";
+    		}
+    					
+    		return new Message(Mensage);
 	}
 	
 	//DELETE  tarea
