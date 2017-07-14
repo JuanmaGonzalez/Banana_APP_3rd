@@ -26,9 +26,9 @@ public class ManageEmployee {
 	
 	
 	public void insertEntities () {
-		Session session = factory.openSession();
+		//Session session = factory.openSession();
 		
-		Transaction t = session.beginTransaction();
+		//Transaction t = session.beginTransaction();
 		
 		/*
 		Employee e1 = new Employee("Ricardo", "Juan");

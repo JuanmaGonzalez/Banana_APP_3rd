@@ -30,7 +30,7 @@
 		<mapping class="com.netmind.models.Departamento" />
 		<mapping class="com.netmind.models.proyectos" />
 		<mapping class="com.netmind.models.tareas" />
-		<mapping class="com.netmind.models.usuario" />
+		<mapping class="com.netmind.models.Usuario" />
 		
 		
 

@@ -3,14 +3,15 @@ package com.netmind.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import com.netmind.models.tareas;
-import com.netmind.models.proyectos;
 
 public final class TareaDAOImpl extends TareaDAO {
 	private static Logger logger = Logger.getLogger("TareaDAOImpl");
@@ -23,10 +24,10 @@ public final class TareaDAOImpl extends TareaDAO {
 		}
 		return instance;
 	}
-	
+
 	@Override
-	public tareas getUnaTarea(int tid) {		
-		tareas tarea = null;		
+	public tareas getUnaTarea(int tid) {
+		tareas tarea = null;
 
 		try {
 			Connection conn = this.datasource.getConnection();
@@ -36,9 +37,9 @@ public final class TareaDAOImpl extends TareaDAO {
 			pstm.setInt(1, tid);
 
 			ResultSet rs = pstm.executeQuery();
-			
-			if(rs.next() == true ) {
-				   tarea =   new tareas(rs.getInt("tid"), rs.getInt("uid"),  rs.getInt("pid"), rs.getString("tarea"),	
+
+			if (rs.next() == true) {
+				tarea = new tareas(rs.getInt("tid"), rs.getInt("uid"), rs.getInt("pid"), rs.getString("tarea"),
 						rs.getDate("fechafin"));
 			}
 
@@ -55,53 +56,44 @@ public final class TareaDAOImpl extends TareaDAO {
 		return tarea;
 	}
 
+	
 	@Override
-	public List<tareas> getTareasProyecto(int pid) {		
-		List<tareas> listTADevolver = new ArrayList<tareas>();		
+	public List<tareas> getTareasProyecto(int pid) {
 
-		try {
-			Connection conn = this.datasource.getConnection();
-			// ordenes sql
-			String sql = "SELECT t.* FROM tareas t WHERE t.pid= ? ";
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, pid);
+		logger.severe("Entorno HIBERNATE: acceso Lista Tareas: getTareasProyecto");
 
-			ResultSet rs = pstm.executeQuery();
-			
-			while (rs.next()) {
-				listTADevolver.add(new tareas(rs.getInt("tid"), rs.getInt("uid"),  rs.getInt("pid"), rs.getString("tarea"),	
-						rs.getDate("fechafin")));
-			}
+		ManageEmployee FactoryPersit = ManageEmployee.getInstance();
+		Session session = FactoryPersit.factory.openSession();
+		Transaction trans = session.beginTransaction();
 
-			pstm.close();
-			conn.close();
+		logger.info("Entorno HIBERNATE: ACCESO A LA SESION: Inicio Transaccion");
+		
+		List<tareas> listTADevolver  = (List<tareas>) session.createQuery("from tareas WHERE pid = " + pid).getResultList();
 
-			logger.info("Conexión exitosa");
-
-		} catch (Exception e) {
-			logger.severe("Error en la conexión de BBDD:" + e);
-			listTADevolver = null;
-		}
+		trans.commit();
+		session.close();
 
 		return listTADevolver;
 	}
-	
+
 	@Override
-	public List<tareas> getTareasTodas() {		
-		List<tareas> listTADevolver = new ArrayList<tareas>();		
+	public List<tareas> getTareasTodas() {
+		
+		
+		List<tareas> listTADevolver = new ArrayList<tareas>();
 
 		try {
 			Connection conn = this.datasource.getConnection();
 			// ordenes sql
 			String sql = "SELECT t.* FROM tareas t ";
 			PreparedStatement pstm = conn.prepareStatement(sql);
-			//pstm.setInt(1, pid);
+			// pstm.setInt(1, pid);
 
 			ResultSet rs = pstm.executeQuery();
-			
+
 			while (rs.next()) {
-				listTADevolver.add(new tareas(rs.getInt("tid"), rs.getInt("uid"),  rs.getInt("pid"), rs.getString("tarea"),	
-						rs.getDate("fechafin")));
+				listTADevolver.add(new tareas(rs.getInt("tid"), rs.getInt("uid"), rs.getInt("pid"),
+						rs.getString("tarea"), rs.getDate("fechafin")));
 			}
 
 			pstm.close();
@@ -116,11 +108,6 @@ public final class TareaDAOImpl extends TareaDAO {
 
 		return listTADevolver;
 	}
-
-	
-	
-	
-	
 
 	@Override
 	public boolean delTarea(int tid) {
@@ -131,16 +118,16 @@ public final class TareaDAOImpl extends TareaDAO {
 
 			try {
 				conn.setAutoCommit(false);
-				
+
 				// Borrar Proyecto uno
 				String sql = "DELETE FROM tareas WHERE tid = ? ";
 				PreparedStatement pstm = conn.prepareStatement(sql);
-				pstm.setInt(1, tid);				
+				pstm.setInt(1, tid);
 
 				int rows = pstm.executeUpdate();
 
 				pstm.close();
-				
+
 				conn.commit();
 
 				conn.close();
@@ -172,7 +159,7 @@ public final class TareaDAOImpl extends TareaDAO {
 
 			try {
 				conn.setAutoCommit(false);
-				
+
 				// INSERTAR EN TAREA
 				String sql = "INSERT INTO tareas (tid, uid, pid, tarea, fechafin )   VALUES (NULL,? ,? ,? ,? )";
 				PreparedStatement pstm = conn.prepareStatement(sql);
@@ -184,7 +171,7 @@ public final class TareaDAOImpl extends TareaDAO {
 				int rows = pstm.executeUpdate();
 
 				pstm.close();
-				
+
 				conn.commit();
 
 				conn.close();
@@ -209,27 +196,27 @@ public final class TareaDAOImpl extends TareaDAO {
 	@Override
 	public boolean updateTarea(tareas tarea) {
 		boolean exito = false;
-		
+
 		try {
 
 			Connection conn = this.datasource.getConnection();
 
 			try {
 				conn.setAutoCommit(false);
-				
+
 				// INSERTAR EN PROYECTO
 				String sql = "UPDATE tareas SET  uid = ? , pid = ? , tarea = ? , fechafin = ? WHERE tid = ?";
-				PreparedStatement pstm = conn.prepareStatement(sql);				
+				PreparedStatement pstm = conn.prepareStatement(sql);
 				pstm.setInt(1, tarea.getUid());
 				pstm.setInt(2, tarea.getPid());
-				pstm.setString(3, tarea.getTarea());				
-				pstm.setDate(4, new java.sql.Date(tarea.getFechafin().getTime()));				
+				pstm.setString(3, tarea.getTarea());
+				pstm.setDate(4, new java.sql.Date(tarea.getFechafin().getTime()));
 				pstm.setInt(5, tarea.getTid());
 
 				int rows = pstm.executeUpdate();
 
 				pstm.close();
-				
+
 				conn.commit();
 
 				conn.close();
