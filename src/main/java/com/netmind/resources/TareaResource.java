@@ -125,18 +125,24 @@ public class TareaResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Message delTarea(@PathParam("tid") int tid) {
-		boolean OkInsertP = false;
+		boolean Oktarea = false;
 		String Mensage = "";
 
 		TareaDAO tarPers = (TareaDAO) TareaDAOImpl.getInstance();
-		OkInsertP = tarPers.delTarea(tid);
+		Oktarea = tarPers.delTarea(tid);
 
-		if (OkInsertP) {
-			Mensage = "Tarea Borrado Correctamente";
-		} else {
-			Mensage = "Tarea No BORRADO";
+		if( Oktarea) {
+			
+			logger.info("METODO DELETE: BORRADO DE TAREA OK :");
+			
+			Mensage  = "TAREA DELETE  Correctamente";			
+		}else {
+			
+			logger.info("METODO DELETE: TAREA NO BORRADA NO EXISTE :");
+			
+			Mensage  = "TAREA NO EXISTE en Tabla Tareas:";
 		}
-
+					
 		return new Message(Mensage);
 	}
 		
