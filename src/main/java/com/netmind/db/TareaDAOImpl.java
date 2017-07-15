@@ -68,6 +68,7 @@ public final class TareaDAOImpl extends TareaDAO {
 
 		logger.info("Entorno HIBERNATE: ACCESO A LA SESION: Inicio Transaccion");
 		
+		@SuppressWarnings("unchecked")
 		List<tareas> listTADevolver  = (List<tareas>) session.createQuery("from tareas WHERE pid = " + pid).getResultList();
 
 		trans.commit();

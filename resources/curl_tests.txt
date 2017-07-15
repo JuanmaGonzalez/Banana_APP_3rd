@@ -1,6 +1,45 @@
-#GET
-curl GET http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/get
-curl GET http://localhost:8080/API_BD_Mosqueteros/rest/tareas/get 
+#TRABAJO SOBRE PROYECTOS
+
+#GET ( Todos los proyectos )
+.\curl GET http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/
+
+#GET ( Proyectos del Usuario solicitado )
+.\curl http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/usuario/4
+
+#GET ( Proyecto solicitado )
+.\curl http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/3
+
+
+#POST ( Prueba de respuesta del JSON )
+.\curl.exe -X POST -H "Content-Type: application/json" -d "{}"  http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/
+
+#POST ( Insertar un Proyecto )
+.\curl.exe -X POST -H "Content-Type: application/json" -d "{\"titulo\":\"GESTION SERVICIOS\",\"fechainicio\":\"2017-01-11\",\"fechafin\":\"2017-11-11\",\"codigo\":\"5555555\",\"pid\":3,\"estado\":true,\"uid\":5}"  http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/
+
+
+#PUT ( Modificar un Proyecto )
+.\curl -X PUT -H "Content-Type: application/json" -d "{\"pid\":12,\"uid\":3,\"codigo\":\"555536\",\"titulo\":\"Proyecto modificado\",\"fechainicio\":\"2016-12-20\",\"fechafin\":\"2017-12-07\",\"estado\":true}" http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/
+
+
+#TRABAJO SOBRE TAREAS
+
+#GET ( Devuelve todas las tareas 
+.\curl http://localhost:8080/API_BD_Mosqueteros/rest/tareas/
+
+#GET ( Devuelve una tarea )
+.\curl http://localhost:8080/API_BD_Mosqueteros/rest/tareas/22
+
+#GET ( Devuelve todas las tareas de un Proyecto )
+
+.\curl http://localhost:8080/API_BD_Mosqueteros/rest/tareas/proyecto/10
+
+#POST ( Inssertar tarea )
+
+.\curl -X POST -H "Content-Type: application/json" -d "{\"tid\":0,\"uid\":3,\"pid\":10,\"tarea\":\"Tarea en PROCESO\",\"fechafin\":\"2018-01-07\"}" http://localhost:8080/API_BD_Mosqueteros/rest/tareas/
+
+
+
+
 
 
 #POST

@@ -165,7 +165,7 @@ public final class ProyectoDAOImpl extends ProyectoDAO {
 			Connection conn = this.datasource.getConnection();
 
 			// ordenes sql
-			String sql = "SELECT p.* FROM proyectos p INNER JOIN tareas t ON t.tid = p.pid WHERE p.uid = ?";
+			String sql = "SELECT p.* FROM proyectos p LEFT JOIN tareas t ON t.pid = p.pid WHERE p.uid = ? ";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, uid);
 

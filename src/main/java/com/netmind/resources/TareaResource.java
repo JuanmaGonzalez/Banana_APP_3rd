@@ -50,7 +50,7 @@ public class TareaResource {
 	
 	
 	/* GET|POST /Lista de tareas del proyecto solicitado */
-	@Path("/proyectos/{pid}")
+	@Path("/proyecto/{pid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<tareas> getTareasProyecto(@PathParam("pid") int pid) {
@@ -80,12 +80,12 @@ public class TareaResource {
   			
   			logger.info("METODO POST: INSERTAR TAREA OK :");
   			
-  			Mensage  = "Tarea Modificada Correctamente";			
+  			Mensage  = "Tarea Insertada rrectamente";			
   		}else {
   			
   			logger.info("METODO POST: TAREA NO INSERTADA: :");
   			
-  			Mensage  = "Tarea No Existe:";
+  			Mensage  = "Tarea No insertada ERROR:";
   		}
   					
   		return new Message(Mensage);
