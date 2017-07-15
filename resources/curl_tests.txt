@@ -42,6 +42,9 @@
 
 
 
+
+
+
 #POST
 curl -X POST -H "Content-Type: application/json" -d '{\"tid\":\"null\",\"uid\":\"null\",\"pid\":\"null\",\"tarea\":\"Tarea de crear tarea\",\"fechafin\":20171307}' http://localhost:8080/API_BD_Mosqueteros/rest/tareas
 
