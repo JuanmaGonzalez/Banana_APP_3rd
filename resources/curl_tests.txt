@@ -20,6 +20,10 @@
 #PUT ( Modificar un Proyecto )
 .\curl -X PUT -H "Content-Type: application/json" -d "{\"pid\":12,\"uid\":3,\"codigo\":\"555536\",\"titulo\":\"Proyecto modificado\",\"fechainicio\":\"2016-12-20\",\"fechafin\":\"2017-12-07\",\"estado\":true}" http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/
 
+#DELETE ( Borrado de un proyecto y sus tareras )
+
+curl -X DELETE http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/4
+
 
 #TRABAJO SOBRE TAREAS
 
@@ -38,53 +42,18 @@
 .\curl -X POST -H "Content-Type: application/json" -d "{\"tid\":0,\"uid\":3,\"pid\":10,\"tarea\":\"Tarea en PROCESO\",\"fechafin\":\"2018-01-07\"}" http://localhost:8080/API_BD_Mosqueteros/rest/tareas/
 
 
+#PUT ( Modificar Tarea )
 
+.\curl -X PUT -H "Content-Type: application/json" -d "{\"tid\":31,\"uid\":3,\"pid\":10,\"tarea\":\"Tarea SIN PROCESOS\",\"fechafin\":\"2018-05-07\"}" http://localhost:8080/API_BD_Mosqueteros/rest/tareas/
 
+#PUT ( Prueba de respuesta JSON )
 
+.\curl -X PUT -H "Content-Type: application/json" -d "{}" http://localhost:8080/API_BD_Mosqueteros/rest/tareas/
 
+#DELETE ( Borrado de Tarea
 
-
-
-#POST
-curl -X POST -H "Content-Type: application/json" -d '{\"tid\":\"null\",\"uid\":\"null\",\"pid\":\"null\",\"tarea\":\"Tarea de crear tarea\",\"fechafin\":20171307}' http://localhost:8080/API_BD_Mosqueteros/rest/tareas
-
-curl -X POST -H "Content-Type: application/json" -d '{"key":"val"}' URL
-curl -X POST -H "Content-Type: application/json" -d '{\"tid\":\"null\",\"uid\":\"null\",\"pid\":\"null\",\"tarea\":\"Tarea de crear tarea\",\"fechafin\":20171307}' http://localhost:8080/API_BD_Mosqueteros/rest/tareas/post
-
-
-curl -X POST -H "Content-Type: application/json" -d '{\"pid\":\"null\",\"uid\":\"null\",\"codigo\":\142536\,\"tarea\":\"Proyecto de crear proyecto\",\"fechafin\":20171307,\"estado\":1}' http://localhost:8080/API_BD_Mosqueteros/rest/proyectos
-
-curl -X POST -H "Content-Type: application/json" -d '{"key":"val"}' URL
-curl -X POST -H "Content-Type: application/json" -d '{\"pid\":\"null\",\"uid\":\"null\",\"codigo\":\142536\,\"tarea\":\"Proyecto de crear proyecto\",\"fechafin\":20171307,\"estado\":1}' http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/post
-
-
-#PUT
-curl -X PUT -H "Content-Type: application/json" -d '{\"tid\":\"50\",\"uid\":\"null\",\"pid\":\"null\",\"tarea\":\"Tarea de crear tarea\",\"fechafin\":20171307}' http://localhost:8080/API_BD_Mosqueteros/rest/tareas/50
-
-curl -X PUT -H "Content-Type: application/json" -d '{\"pid\":\"50\",\"uid\":\"null\",\"codigo\":\142536\,\"tarea\":\"Proyecto de crear proyecto\",\"fechafin\":20171307,\"estado\":1}' http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/50
-
-
-#DELETE
-curl -X DELETE http://localhost:8080/API_BD_Mosqueteros/rest/tareas/10
-
-curl -X DELETE http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/10
+curl -X DELETE http://localhost:8080/API_BD_Mosqueteros/rest/tareas/3
 
 
 #Envio de token para acceder a zona restringida
 curl -H "Content-Type: application/json" -H "token: eyJraWQiOiIxIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJkZWh1bW8uY29tIiwiZXhwIjoxNDgwNDQxNDkzLCJqdGkiOiJwUUNWYVpLUldCVXVpSmZna0xvcDZRIiwiaWF0IjoxNDgwNDQwODkzLCJuYmYiOjE0ODA0NDA3NzMsInN1YiI6Imp1YW5AZ21haWwuY29tIiwicm9sZXMiOlsiY2xpZW50Il19.hMTfrUnwnZ0Yz6IRPnFvf6_fNCqhfhbwq1XbfYK2q8LZpayzPTLKw0Mx0JoJAik0WhCStQcfLeBQGEIkJz88ebexPkRMMNWJmxXKKmap6NchHu8aZc0cBpjkv7EOy5uAe6gzFYY9o6-sc0SKoiRBCVjys4klcArFb3RWuz_SJwTUFUjmOJ225_1nfKb0u5uZNuLl3lvePRlSlsu7g3gM3YjH-_h6kOviU0vjr3kB4CXavr1lVO5kGrbVSPLSh18UEbxQ9BMFacnsdGm89psV55c_MCYoccEfFi87BPl75tGa0fTBE_vbKMsWL1rpjAWHXfBOS0Y3u9uE-ROl68F5ww" -v -X GET http://localhost:8080/API_BD_Mosqueteros/rest/json/owndata
-
-
-#PUT
--- PUT ( MODIFICAR PROYECTO )
-
-curl.exe -X PUT -H "Content-Type: application/json" -d "{\"uid\":4,\"fechainicio\":\"2017-01-12\",\"pid\":5,\"titulo\":\"JOSEP PRIETO\",\"fechafin\":\"2017-06-12\",\"estado\":true,\"codigo\":\"999999\"}"  http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/
-
-#POST
--- POST ( INSERTAR PROYECTO )
-
-curl.exe -X POST -H "Content-Type: application/json" -d "{}"  http://localhost:8080/API_BD_Mosqueteros/rest/proyectos/
-
-#POST
--- POST ( INSERTAR TAREA )
-
-.\curl.exe -X POST -H "Content-Type: application/json" -d "{\"uid\":8,\"tid\":0,\"pid\":8,\"fechafin\":2017-01-01,"\tarea\":\"Sistema de Alimentacion\"}" http://localhost:8080/API_BD_Mosqueteros/rest/tareas/

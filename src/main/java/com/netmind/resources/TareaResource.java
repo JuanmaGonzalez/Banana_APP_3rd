@@ -108,12 +108,12 @@ public class TareaResource {
     			
     			logger.info("METODO PUT: MODIFICAR TAREA OK :");
     			
-    			Mensage  = "TAREAS Modificado Correctamente";			
+    			Mensage  = "TAREA Modificada Correctamente";			
     		}else {
     			
     			logger.info("METODO PUT: TAREA NO MODIFICADA: NO EXISTE :");
     			
-    			Mensage  = "TAREA NO EXISTE en Tabla Tareas:";
+    			Mensage  = "TAREA NO EXISTE en Tabla TAREAS:";
     		}
     					
     		return new Message(Mensage);
